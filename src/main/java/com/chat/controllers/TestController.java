@@ -16,6 +16,6 @@ public class TestController {
     @SendTo("/topic/chat")
     public TextMessage hi(Person person){
         Thread.sleep(1000);
-        return new TextMessage(HtmlUtils.htmlEscape("Hello "+person.getName()));
+        return new TextMessage("Hello "+person.getName());
     }
 }
