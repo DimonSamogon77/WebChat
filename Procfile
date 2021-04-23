@@ -1,1 +1,1 @@
-web: java -jar target/WebChat-1.0.jar
+web: java -jar target/web_chat-0.0.1.jar
