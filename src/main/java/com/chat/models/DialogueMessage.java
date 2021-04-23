@@ -2,12 +2,14 @@ package com.chat.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class DialogueMessage {
-    private String text;
     private String from;
+    private String text;
 }
