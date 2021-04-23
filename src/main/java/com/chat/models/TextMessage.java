@@ -8,8 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
 public class TextMessage {
     private String text;
-    private String from;
 }

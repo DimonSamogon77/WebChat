@@ -37,6 +37,8 @@ function sendName() {
     stompClient.send("/chat/hello", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
+
+
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
