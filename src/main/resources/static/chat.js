@@ -10,8 +10,8 @@ function connect() {
                 const messageObj = JSON.parse(sendMessage.body);
                 showMessage(messageObj.from, messageObj.text);
         });
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': 'connected to server'}));
     });
-    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': 'connected to server'}));
 }
 
 function disconnect() {
