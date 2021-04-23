@@ -4,12 +4,11 @@ function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
-        $("#conversation").show();
+        $(".dialog").show();
     }
     else {
-        $("#conversation").hide();
+        $(".dialog").hide();
     }
-    $("#greetings").html("");
 }
 
 function connect() {
@@ -19,10 +18,12 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/chat',
-            function (hi) {
-            showGreeting(JSON.parse(hi.body).aue);
+            function (sendMessage) {
+                const messageObj = JSON.parse(sendMessage.body);
+                showMessage(messageObj.from, messageObj.text);
         });
     });
+    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': 'connected to server'}));
 }
 
 function disconnect() {
@@ -33,21 +34,21 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
-    stompClient.send("/chat/hello", {}, JSON.stringify({'name': $("#name").val()}));
+function sendMessage() {
+    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': $("#message")}));
 }
 
-
-
-function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+function showMessage(sender, text) {
+    $(".dialog__content").append(`<p class="dialog__message">${sender}: ${text}</p>`);
 }
 
 $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
+    $( "#connect" ).click(function() { 
+        connect();
+    });
     $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendName(); });
+    $( "#send" ).click(function() { sendMessage(); });
 });
