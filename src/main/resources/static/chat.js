@@ -1,7 +1,7 @@
-var stompClient = null;
+let stompClient = null;
 
 function connect() {
-    var socket = new SockJS('/ws');
+    let socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
