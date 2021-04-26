@@ -41,8 +41,8 @@ $(function () {
 });
 
 function form() {
-    const form = $('.registration__form');
-    const formButton = $('.registration__button');
+    const form = document.querySelector('.registration__form');
+    const formButton = document.querySelector('.registration__button');
 
     formButton.addEventListener('click', (event) => {
         event.preventDefault();
