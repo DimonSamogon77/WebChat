@@ -15,17 +15,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 public class Person {
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "userName")
     private String userName;
-
-    @Column(name = "password")
+    private String email;
     private String password;
 }

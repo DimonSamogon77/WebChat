@@ -4,13 +4,10 @@ import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/chat")
+@RestController
+@RequestMapping("/chatik")
 public class TestController {
 
     @MessageMapping("/dialogue")
@@ -19,14 +16,9 @@ public class TestController {
         return new DialogueMessage(dialogueMessage.getFrom(), dialogueMessage.getText());
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public void newPerson(Person person){
         System.out.println("Мы молодцы");
-
     }
 
-    @GetMapping
-    public String hui(){
-        return "/index";
-    }
 }
