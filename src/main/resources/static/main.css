@@ -1,9 +1,37 @@
-.header {
+.title {
+    text-align: center;
+}
+
+
+.registration__inner {
+    padding: 20px 0;
+}
+
+.registration__form {
+    width: 720px;
+    border: 1px solid black;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.registration__input {
+    display: block;
+    width: 80%;
+    margin: 0 auto 10px;
+}
+
+.registration__button {
+    display: block;
+    margin: auto;
+}
+
+.connect {
     width: 100%;
     padding: 5px;
 }
 
-.header__form {
+.connect__form {
     display: flex;
     justify-content: center;
 }
@@ -28,4 +56,8 @@
 .dialog__message {
     margin: 0;
     padding: 5px;
+}
+
+.hide {
+    display: none;
 }

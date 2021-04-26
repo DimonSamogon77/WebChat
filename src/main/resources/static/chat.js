@@ -39,3 +39,27 @@ $(function () {
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
 });
+
+function form() {
+    const form = $('.registration__form');
+    const formButton = $('.registration__button');
+
+    formButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
+        $.ajax({
+            url: "",
+            type: "POST",
+            data: ({
+                data: formData
+            }),
+            dataType: "json",
+            success: () => {
+                $('.registration').classList.add('hide');
+                $('.connect').classList.remove('hide');
+            }
+        })
+    });
+}
+
+form();
