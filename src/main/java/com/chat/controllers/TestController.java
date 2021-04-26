@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/chatik")
 public class TestController {
 
-    @Autowired
     private PersonDao personDao;
+
+    @Autowired
+    public TestController(PersonDao personDao) {
+        this.personDao = personDao;
+    }
 
     @MessageMapping("/dialogue")
     @SendTo("/topic/chat")
