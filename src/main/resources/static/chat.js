@@ -43,17 +43,16 @@ $(function () {
 function form() {
     const form = document.querySelector('.registration__form');
     const formButton = document.querySelector('.registration__button');
-    console.log(formButton)
 
     formButton.addEventListener('click', (event) => {
         event.preventDefault();
         formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
-        console.log(formData)
         $.ajax({
             url: "http://localhost:8080/chatik/login",
             type: "POST",
             data: formData,
-            contentType: "json",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
             success: () => {
                 $('.registration').classList.add('hide');
                 $('.connect').classList.remove('hide');
