@@ -48,7 +48,7 @@ function form() {
         event.preventDefault();
         formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
         $.ajax({
-            url: "",
+            url: "http://localhost",
             type: "POST",
             data: ({
                 data: formData
