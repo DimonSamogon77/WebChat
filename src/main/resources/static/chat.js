@@ -48,13 +48,13 @@ function form() {
         event.preventDefault();
         formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
         $.ajax({
-            url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            url: "localhost:8080/chatik/login",
             type: "POST",
             data: formData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: () => {
-                document.querySelector('.registraton').classList.add('hide');
+                document.querySelector('.registration').classList.add('hide');
                 document.querySelector('.main-chat').classList.remove('hide');
             }
         })
