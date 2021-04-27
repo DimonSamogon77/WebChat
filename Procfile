@@ -1,1 +1,0 @@
-web: java $JAVA_OPTS -jar target/WebChat-1.0.jar
