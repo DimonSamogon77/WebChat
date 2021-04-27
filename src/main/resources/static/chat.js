@@ -54,8 +54,8 @@ function form() {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: () => {
-                $('.registration').classList.add('hide');
-                $('.connect').classList.remove('hide');
+                document.querySelector('.registraton').classList.add('hide');
+                document.querySelector('.main-chat').classList.remove('hide');
             }
         })
     });
