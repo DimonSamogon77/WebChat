@@ -9,7 +9,7 @@
     <name>WebChat</name>
     <description>OurFirstWebChat</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
 
