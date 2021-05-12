@@ -46,19 +46,23 @@ function form() {
 
     formButton.addEventListener('click', (event) => {
         event.preventDefault();
-        formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
+        const formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
+
         $.ajax({
-            url: "http://localhost:8080/chatik/login",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            //url: "http://localhost:8080/chatik/login",
+            url: "https://chatdimonanton.herokuapp.com/chatik/login",
             type: "POST",
             data: formData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            success: () => {
+            success: (data) => {
+                console.log(data);
                 document.querySelector('.registration').classList.add('hide');
                 document.querySelector('.main-chat').classList.remove('hide');
             }
-        })
+        });
+
+
     });
 }
 

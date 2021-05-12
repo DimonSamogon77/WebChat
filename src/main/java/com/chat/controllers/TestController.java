@@ -27,9 +27,10 @@ public class TestController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void newPerson(@RequestBody Person person) {
+    public int newPerson(@RequestBody Person person) {
         personDao.save(person);
         System.out.println("Мы молодцы");
+        return 1;
     }
 
 
