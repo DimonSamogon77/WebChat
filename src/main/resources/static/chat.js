@@ -1,9 +1,11 @@
 let stompClient = null;
+let userName;
 
-function connect() {
+function connect(inputSelector) {
     let socket = new SockJS('/ws');
+    userName = document.querySelector(inputSelector);
 
-    document.querySelector('.header__info').innerHTML = `You logged as ${document.querySelector('#name').value}`; 
+    document.querySelector('.header__info').innerHTML = `You logged as ${userName}`; 
 
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -13,7 +15,7 @@ function connect() {
                 const messageObj = JSON.parse(sendMessage.body);
                 showMessage(messageObj.from, messageObj.text);
         });
-        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': 'connected to server'}));
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
     });
 }
 
@@ -22,10 +24,12 @@ function disconnect() {
         stompClient.disconnect();
     }
     console.log("Disconnected");
+    document.querySelector('.registration').classList.remove('hide');
+    document.querySelector('.main-chat').classList.add('hide');
 }
 
 function sendMessage() {
-    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': $("#message").val()}));
+    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': $("#message").val()}));
     document.querySelector('#message').value = '';
 }
 
@@ -42,29 +46,48 @@ $(function () {
 });
 
 function form() {
-    const form = document.querySelector('.registration__form');
-    const formButton = document.querySelector('.registration__button');
+    const regForm = document.querySelector('.registration__form');
+    const regButton = document.querySelector('.registration__button');
+    const authForm = document.querySelector('.registration__authorization-form');
+    const regButton = document.querySelector('.registration__authorization-button');
 
-    formButton.addEventListener('click', (event) => {
+    regButton.addEventListener('click', (event) => {
         event.preventDefault();
-        const formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
+        const regFormData = JSON.stringify(Object.fromEntries((new FormData(regForm)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/login",
+            url: "http://localhost:8080/chatik/signup",
             //url: "https://chatdimonanton.herokuapp.com/chatik/login",
             type: "POST",
-            data: formData,
+            data: regFormData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
                 document.querySelector('.registration').classList.add('hide');
                 document.querySelector('.main-chat').classList.remove('hide');
-                connect();
+                connect('.registration__registration-input');
             }
         });
+    });
+    authButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
-
+        $.ajax({
+            url: "http://localhost:8080/chatik/signin",
+            //url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            type: "POST",
+            data: authFormData,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: (data) => {
+                console.log(data);
+                document.querySelector('.registration').classList.add('hide');
+                document.querySelector('.main-chat').classList.remove('hide');
+                connect('.registration__authorization-input');
+            }
+        });
     });
 }
 
