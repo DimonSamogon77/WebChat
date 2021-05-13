@@ -3,7 +3,7 @@ let stompClient = null;
 function connect() {
     let socket = new SockJS('/ws');
 
-    document.querySelector('.connect__info').innerHTML = `You logged as ${document.querySelector('#name').value}`; 
+    document.querySelector('.header__info').innerHTML = `You logged as ${document.querySelector('#name').value}`; 
 
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -26,6 +26,7 @@ function disconnect() {
 
 function sendMessage() {
     stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': $("#name").val(), 'text': $("#message").val()}));
+    document.querySelector('#message').value = '';
 }
 
 function showMessage(sender, text) {
