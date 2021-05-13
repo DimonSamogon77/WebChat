@@ -52,6 +52,10 @@ body {
     margin: auto;
 }
 
+.registartion__alert {
+    color: red;
+}
+
 .header {
     width: 100%;
     padding: 10px;

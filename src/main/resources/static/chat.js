@@ -3,7 +3,7 @@ let userName;
 
 function connect(inputSelector) {
     let socket = new SockJS('/ws');
-    userName = document.querySelector(inputSelector);
+    userName = document.querySelector(inputSelector).value;
 
     document.querySelector('.header__info').innerHTML = `You logged as ${userName}`; 
 
@@ -49,7 +49,7 @@ function form() {
     const regForm = document.querySelector('.registration__form');
     const regButton = document.querySelector('.registration__button');
     const authForm = document.querySelector('.registration__authorization-form');
-    const authButton = document.querySelector('.registration__authorization-button');
+    const regButton = document.querySelector('.registration__authorization-button');
 
     regButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -63,10 +63,16 @@ function form() {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
-                console.log(data);
-                document.querySelector('.registration').classList.add('hide');
-                document.querySelector('.main-chat').classList.remove('hide');
-                connect('.registration__registration-input');
+                if (data) {
+                    console.log(data);
+                    document.querySelector('.registration').classList.add('hide');
+                    document.querySelector('.main-chat').classList.remove('hide');
+                    connect('.registration__registration-input');
+                    document.querySelector('.registration__registration-alert').innerHTML = '';
+                    document.querySelector('.registration__authorization-alert').innerHTML = '';
+                } else {
+                    document.querySelector('.registration__registration-alert').innerHTML = "user with this email is already exist";
+                }
             }
         });
     });
@@ -76,16 +82,21 @@ function form() {
 
         $.ajax({
             url: "http://localhost:8080/chatik/signin",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/signin",
+            //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
             type: "POST",
             data: authFormData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
-                console.log(data);
-                document.querySelector('.registration').classList.add('hide');
-                document.querySelector('.main-chat').classList.remove('hide');
-                connect('.registration__authorization-input');
+                if (data) {
+                    document.querySelector('.registration').classList.add('hide');
+                    document.querySelector('.main-chat').classList.remove('hide');
+                    connect('.registration__authorization-input');
+                    document.querySelector('.registration__registration-alert').innerHTML = '';
+                    document.querySelector('.registration__authorization-alert').innerHTML = '';
+                } else {
+                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+                }
             }
         });
     });
