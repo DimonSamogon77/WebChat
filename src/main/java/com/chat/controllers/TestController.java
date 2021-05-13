@@ -37,9 +37,9 @@ public class TestController {
         return -1;
     }
 
-//    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public boolean signIn(@RequestBody Person person){
-//        Person findPerson = personDao.findByEmail(person.getEmail());
-//        return findPerson != null;
-//    }
+    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean signIn(@RequestBody Person person){
+        Person findPerson = personDao.findByEmail(person.getEmail());
+        return findPerson != null;
+    }
 }

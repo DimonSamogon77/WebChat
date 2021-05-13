@@ -49,7 +49,7 @@ function form() {
     const regForm = document.querySelector('.registration__form');
     const regButton = document.querySelector('.registration__button');
     const authForm = document.querySelector('.registration__authorization-form');
-    const regButton = document.querySelector('.registration__authorization-button');
+    const authButton = document.querySelector('.registration__authorization-button');
 
     regButton.addEventListener('click', (event) => {
         event.preventDefault();
@@ -76,7 +76,7 @@ function form() {
 
         $.ajax({
             url: "http://localhost:8080/chatik/signin",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
+            //url: "https://chatdimonanton.herokuapp.com/chatik/signin",
             type: "POST",
             data: authFormData,
             dataType: 'json',
