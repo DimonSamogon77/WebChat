@@ -26,12 +26,20 @@ public class TestController {
         return new DialogueMessage(dialogueMessage.getFrom(), dialogueMessage.getText());
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public int newPerson(@RequestBody Person person) {
-        personDao.save(person);
-        System.out.println("Мы молодцы");
-        return 1;
+    @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public int signUp(@RequestBody Person person) {
+        Person findPerson = personDao.findByEmail(person.getEmail());
+        if (findPerson == null) {
+            personDao.save(person);
+            System.out.println("Мы молодцы");
+            return 1;
+        }
+        return -1;
     }
 
-
+//    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public boolean signIn(@RequestBody Person person){
+//        Person findPerson = personDao.findByEmail(person.getEmail());
+//        return findPerson != null;
+//    }
 }

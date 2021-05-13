@@ -57,7 +57,7 @@ function form() {
 
         $.ajax({
             url: "http://localhost:8080/chatik/signup",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            //url: "https://chatdimonanton.herokuapp.com/chatik/signup",
             type: "POST",
             data: regFormData,
             dataType: 'json',
@@ -76,7 +76,7 @@ function form() {
 
         $.ajax({
             url: "http://localhost:8080/chatik/signin",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
             type: "POST",
             data: authFormData,
             dataType: 'json',
