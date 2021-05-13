@@ -50,8 +50,8 @@ function form() {
         const formData = JSON.stringify(Object.fromEntries((new FormData(form)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/login",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/login",
+            //url: "http://localhost:8080/chatik/login",
+            url: "https://chatdimonanton.herokuapp.com/chatik/login",
             type: "POST",
             data: formData,
             dataType: 'json',
