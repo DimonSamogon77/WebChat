@@ -2,6 +2,9 @@ let stompClient = null;
 
 function connect() {
     let socket = new SockJS('/ws');
+
+    document.querySelector('.connect__info').innerHTML = `You logged as ${document.querySelector('#name').value}`; 
+
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -33,9 +36,6 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { 
-        connect();
-    });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendMessage(); });
 });
@@ -59,6 +59,7 @@ function form() {
                 console.log(data);
                 document.querySelector('.registration').classList.add('hide');
                 document.querySelector('.main-chat').classList.remove('hide');
+                connect();
             }
         });
 
