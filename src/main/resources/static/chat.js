@@ -81,25 +81,37 @@ function form() {
         const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/signin",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
-            type: "POST",
+            url: "http://localhost:8080/chatik/",
+            type: "GET",
             data: authFormData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
-                if (data === JSON.stringify({})) {
-                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+
+                if (data === 1) {
+                    $.ajax({
+                        url: "http://localhost:8080/chatik/signin",
+                        //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
+                        type: "GET",
+                        data: authFormData,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: (data) => {
+                            console.log(data);
+                            
+                            document.querySelector('.registration').classList.add('hide');
+                            document.querySelector('.main-chat').classList.remove('hide');
+                            connect(JSON.stringify(data).userName);
+                            document.querySelector('.registration__registration-alert').innerHTML = '';
+                            document.querySelector('.registration__authorization-alert').innerHTML = '';
+                        }
+                    });
                 } else {
-                    document.querySelector('.registration').classList.add('hide');
-                    document.querySelector('.main-chat').classList.remove('hide');
-                    connect(JSON.stringify(data).userName);
-                    document.querySelector('.registration__registration-alert').innerHTML = '';
-                    document.querySelector('.registration__authorization-alert').innerHTML = '';
+                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
                 }
             }
-        });
+        })
     });
 }
 
