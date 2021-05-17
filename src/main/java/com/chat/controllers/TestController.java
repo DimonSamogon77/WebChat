@@ -24,7 +24,7 @@ public class TestController {
     @MessageMapping("/dialogue")
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
-        return new DialogueMessage(dialogueMessage.getFrom(), dialogueMessage.getText());
+        return new DialogueMessage(dialogueMessage.getText());
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +40,15 @@ public class TestController {
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
-        return personDao.findByEmail(personWithNoUsername.getEmail());
+        Person findPerson = personDao.findByEmail(personWithNoUsername.getEmail());
+        if(findPerson!=null){
+            if(personWithNoUsername.getPassword().equals(findPerson.getPassword())){
+                return findPerson;
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 }
