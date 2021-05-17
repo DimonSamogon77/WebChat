@@ -12,7 +12,7 @@ function connect(name) {
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
                 showMessage(name, messageObj.text);
-        });
+            });
         stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': name, 'text': 'connected to server'}));
     });
 }
@@ -39,8 +39,12 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendMessage(); });
+    $("#disconnect").click(function () {
+        disconnect();
+    });
+    $("#send").click(function () {
+        sendMessage();
+    });
 });
 
 function form() {
@@ -79,45 +83,32 @@ function form() {
         const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/",
-            type: "GET",
+            url: "http://localhost:8080/chatik/verification",
+            type: "POST",
             data: authFormData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
-<<<<<<< HEAD
-
                 if (data === 1) {
                     $.ajax({
                         url: "http://localhost:8080/chatik/signin",
                         //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
-                        type: "GET",
+                        type: "POST",
                         data: authFormData,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: (data) => {
                             console.log(data);
-                            
                             document.querySelector('.registration').classList.add('hide');
                             document.querySelector('.main-chat').classList.remove('hide');
-                            connect(JSON.stringify(data).userName);
+                            connect(data.userName);
                             document.querySelector('.registration__registration-alert').innerHTML = '';
                             document.querySelector('.registration__authorization-alert').innerHTML = '';
                         }
                     });
                 } else {
                     document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
-=======
-                if (data === null) {
-                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
-                } else {
-                    document.querySelector('.registration').classList.add('hide');
-                    document.querySelector('.main-chat').classList.remove('hide');
-                    connect(data.userName);
-                    document.querySelector('.registration__registration-alert').innerHTML = '';
-                    document.querySelector('.registration__authorization-alert').innerHTML = '';
->>>>>>> 4fd89f131176e26083668be87b367bb60fcd1553
                 }
             }
         })
