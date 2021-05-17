@@ -89,15 +89,15 @@ function form() {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
-                // if (data === "false") {
-                //     document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
-                // } else {
+                if (data === JSON.stringify({})) {
+                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+                } else {
                     document.querySelector('.registration').classList.add('hide');
                     document.querySelector('.main-chat').classList.remove('hide');
-                    connect(data);
+                    connect(JSON.stringify(data).userName);
                     document.querySelector('.registration__registration-alert').innerHTML = '';
                     document.querySelector('.registration__authorization-alert').innerHTML = '';
-                //}
+                }
             }
         });
     });
