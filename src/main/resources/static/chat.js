@@ -1,4 +1,5 @@
 let stompClient = null;
+let userName;
 
 function connect(name) {
     let socket = new SockJS('/ws');
