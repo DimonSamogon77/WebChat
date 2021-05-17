@@ -3,6 +3,7 @@ package com.chat.controllers;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
+import com.chat.models.PersonWithNoUsername;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -27,19 +28,18 @@ public class TestController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public int signUp(@RequestBody Person person) {
+    public boolean signUp(@RequestBody Person person) {
         Person findPerson = personDao.findByEmail(person.getEmail());
         if (findPerson == null) {
             personDao.save(person);
             System.out.println("Мы молодцы");
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean signIn(@RequestBody Person person){
-        Person findPerson = personDao.findByEmail(person.getEmail());
-        return findPerson != null;
+    public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
+        return personDao.findByEmail(personWithNoUsername.getEmail());
     }
 }
