@@ -24,7 +24,7 @@ public class TestController {
     @MessageMapping("/dialogue")
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
-        return new DialogueMessage(dialogueMessage.getText());
+        return new DialogueMessage(dialogueMessage.getFrom() ,dialogueMessage.getText());
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
