@@ -94,7 +94,7 @@ function form() {
                 if (data === 1) {
                     $.ajax({
                         // url: "http://localhost:8080/chatik/signin",
-                        url: "https://chatdimonanton.herokuapp.com/chatik/singin",
+                        url: "https://chatdimonanton.herokuapp.com/chatik/signin",
                         type: "POST",
                         data: authFormData,
                         dataType: 'json',
