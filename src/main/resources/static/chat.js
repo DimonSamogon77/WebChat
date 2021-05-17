@@ -1,9 +1,9 @@
 let stompClient = null;
 let userName;
 
-function connect(inputSelector) {
+function connect(name) {
     let socket = new SockJS('/ws');
-    userName = document.querySelector(inputSelector).value;
+    userName = name;
 
     document.querySelector('.header__info').innerHTML = `You logged as ${userName}`; 
 
@@ -67,7 +67,7 @@ function form() {
                     console.log(data);
                     document.querySelector('.registration').classList.add('hide');
                     document.querySelector('.main-chat').classList.remove('hide');
-                    connect('.registration__registration-input');
+                    connect(document.querySelector('.registration__registration-input').value);
                     document.querySelector('.registration__registration-alert').innerHTML = '';
                     document.querySelector('.registration__authorization-alert').innerHTML = '';
                 } else {
@@ -88,15 +88,16 @@ function form() {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
-                if (data) {
+                console.log(data);
+                // if (data === "false") {
+                //     document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+                // } else {
                     document.querySelector('.registration').classList.add('hide');
                     document.querySelector('.main-chat').classList.remove('hide');
-                    connect('.registration__authorization-input');
+                    connect(data);
                     document.querySelector('.registration__registration-alert').innerHTML = '';
                     document.querySelector('.registration__authorization-alert').innerHTML = '';
-                } else {
-                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
-                }
+                //}
             }
         });
     });
