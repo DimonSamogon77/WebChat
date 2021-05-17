@@ -1,11 +1,9 @@
 let stompClient = null;
-let userName;
 
 function connect(name) {
     let socket = new SockJS('/ws');
-    userName = name;
 
-    document.querySelector('.header__info').innerHTML = `You logged as ${userName}`; 
+    document.querySelector('.header__info').innerHTML = `You logged as ${name}`;
 
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -13,9 +11,9 @@ function connect(name) {
         stompClient.subscribe('/topic/chat',
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
-                showMessage(messageObj.from, messageObj.text);
+                showMessage(name, messageObj.text);
         });
-        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': name, 'text': 'connected to server'}));
     });
 }
 
@@ -88,6 +86,7 @@ function form() {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
+<<<<<<< HEAD
 
                 if (data === 1) {
                     $.ajax({
@@ -109,6 +108,16 @@ function form() {
                     });
                 } else {
                     document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+=======
+                if (data === null) {
+                    document.querySelector('.registration__authorization-alert').innerHTML = 'wrong password/email';
+                } else {
+                    document.querySelector('.registration').classList.add('hide');
+                    document.querySelector('.main-chat').classList.remove('hide');
+                    connect(data.userName);
+                    document.querySelector('.registration__registration-alert').innerHTML = '';
+                    document.querySelector('.registration__authorization-alert').innerHTML = '';
+>>>>>>> 4fd89f131176e26083668be87b367bb60fcd1553
                 }
             }
         })
