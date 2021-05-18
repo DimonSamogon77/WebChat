@@ -24,7 +24,7 @@ public class TestController {
     @MessageMapping("/dialogue")
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
-        return new DialogueMessage(dialogueMessage.getText());
+        return new DialogueMessage(dialogueMessage.getFrom() ,dialogueMessage.getText());
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,17 +38,22 @@ public class TestController {
         return false;
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
+    @RequestMapping(value = "/verification", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public int verification(@RequestBody PersonWithNoUsername personWithNoUsername){
         Person findPerson = personDao.findByEmail(personWithNoUsername.getEmail());
         if(findPerson!=null){
-            if(personWithNoUsername.getPassword().equals(findPerson.getPassword())){
-                return findPerson;
-            }else{
-                return null;
+            if(findPerson.getPassword().equals(personWithNoUsername.getPassword())){
+                return 1;
+            }else {
+                return 0;
             }
         }else{
-            return null;
+            return 0;
         }
+    }
+
+    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
+        return personDao.findByEmail(personWithNoUsername.getEmail());
     }
 }

@@ -13,9 +13,15 @@ function connect(name) {
         stompClient.subscribe('/topic/chat',
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
+<<<<<<< HEAD
                 showMessage(userName, messageObj.text);
         });
         stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
+=======
+                showMessage(name, messageObj.text);
+            });
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': name, 'text': 'connected to server'}));
+>>>>>>> 85da268b5c24f8d24aa940e121dd76b6f628297b
     });
 }
 
@@ -41,8 +47,12 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#disconnect" ).click(function() { disconnect(); });
-    $( "#send" ).click(function() { sendMessage(); });
+    $("#disconnect").click(function () {
+        disconnect();
+    });
+    $("#send").click(function () {
+        sendMessage();
+    });
 });
 
 function form() {
@@ -56,8 +66,8 @@ function form() {
         const regFormData = JSON.stringify(Object.fromEntries((new FormData(regForm)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/signup",
-            //url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+            // url: "http://localhost:8080/chatik/signup",
+            url: "https://chatdimonanton.herokuapp.com/chatik/signup",
             type: "POST",
             data: regFormData,
             dataType: 'json',
@@ -81,28 +91,31 @@ function form() {
         const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
         $.ajax({
-            url: "http://localhost:8080/chatik/",
-            type: "GET",
+            // url: "http://localhost:8080/chatik/verification",
+            url: "https://chatdimonanton.herokuapp.com/chatik/verification",
+            type: "POST",
             data: authFormData,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85da268b5c24f8d24aa940e121dd76b6f628297b
                 if (data === 1) {
                     $.ajax({
-                        url: "http://localhost:8080/chatik/signin",
-                        //url: "https://chatdimonanton.herokuapp.com/chatik/singin",
-                        type: "GET",
+                        // url: "http://localhost:8080/chatik/signin",
+                        url: "https://chatdimonanton.herokuapp.com/chatik/signin",
+                        type: "POST",
                         data: authFormData,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: (data) => {
                             console.log(data);
-                            
                             document.querySelector('.registration').classList.add('hide');
                             document.querySelector('.main-chat').classList.remove('hide');
-                            connect(JSON.stringify(data).userName);
+                            connect(data.userName);
                             document.querySelector('.registration__registration-alert').innerHTML = '';
                             document.querySelector('.registration__authorization-alert').innerHTML = '';
                         }

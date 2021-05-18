@@ -10,5 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DialogueMessage {
+    private String from;
     private String text;
 }
