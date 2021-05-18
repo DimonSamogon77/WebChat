@@ -13,15 +13,9 @@ function connect(name) {
         stompClient.subscribe('/topic/chat',
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
-<<<<<<< HEAD
                 showMessage(userName, messageObj.text);
         });
         stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
-=======
-                showMessage(name, messageObj.text);
-            });
-        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': name, 'text': 'connected to server'}));
->>>>>>> 85da268b5c24f8d24aa940e121dd76b6f628297b
     });
 }
 
@@ -99,10 +93,7 @@ function form() {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 console.log(data);
-<<<<<<< HEAD
 
-=======
->>>>>>> 85da268b5c24f8d24aa940e121dd76b6f628297b
                 if (data === 1) {
                     $.ajax({
                         // url: "http://localhost:8080/chatik/signin",
