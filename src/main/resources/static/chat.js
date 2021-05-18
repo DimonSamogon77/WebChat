@@ -13,7 +13,7 @@ function connect(name) {
         stompClient.subscribe('/topic/chat',
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
-                showMessage(userName, messageObj.text);
+                showMessage(messageObj.from, messageObj.text);
         });
         stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
     });
