@@ -60,4 +60,9 @@ public class TestController {
     public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
         return personDao.findByEmail(personWithNoUsername.getEmail());
     }
+
+    @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<DialogueMessage> loadDb(){
+        return messagesDao.findAll();
+    }
 }

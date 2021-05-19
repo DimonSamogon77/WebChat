@@ -4,6 +4,18 @@ export default function chat() {
     let stompClient = null;
     let userName;
 
+    $.ajax({
+        url: "http://localhost:8080/chatik/loaddb",
+        // url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
+        type: "GET",
+        // data: regFormData,
+        // dataType: 'json',
+        // contentType: 'application/json; charset=utf-8',
+        success: (data) => {
+            console.log(data)
+        }
+    });
+
     function connect(name) {
         let socket = new SockJS('/ws');
         userName = name;
