@@ -1,0 +1,100 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,regular,italic,700,700italic);
+@import url(./reset.css);
+
+body {
+    font-family: 'Roboto-Condensed';
+}
+
+.title {
+    text-align: center;
+}
+
+.registration {
+    position: relative;
+
+    &__inner {
+        width: 100%;
+        position: relative;
+        padding: 20px 0;
+    }
+    &__form {
+        width: 720px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px auto;
+        background-color: white;
+    }
+    &__authorization-form {
+        background-color: white;
+        width: 720px;
+        border: 1px solid black;
+        margin: 10px auto;
+        border-radius: 10px;
+        padding: 10px;
+        /* z-index: -1; */
+    }
+    &__input {
+        display: block;
+        width: 80%;
+        margin: 0 auto 10px;
+    }
+    &__button {
+        display: block;
+        margin: auto;
+    }
+    &__authorization-button {
+        display: block;
+        margin: auto;
+    }
+    &__alert {
+        color: red;
+        margin: auto;
+    }
+}
+
+.header {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__logo {
+        height: 100px;
+    }
+    &__info {
+        font-size: 25px;
+        font-family: 'Roboto-Condensed';
+    }
+}
+
+.dialog {
+    margin-top: 20px;
+
+    &__content {
+        width: 80%;
+        height: 500px;
+        margin: auto;
+        border: 1px solid rgb(192, 192, 192);
+        border-radius: 10px;
+        overflow-y: scroll;
+        word-wrap: break-word;
+    }
+    &__form {
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        margin: 10px auto;
+    }
+    &__message {
+        margin: 0;
+        padding: 5px;
+    }
+    &__sender {
+        color: red;
+    }
+}
+
+.hide {
+    display: none;
+}
