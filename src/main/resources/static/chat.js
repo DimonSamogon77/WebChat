@@ -13,9 +13,9 @@ function connect(name) {
         stompClient.subscribe('/topic/chat',
             function (sendMessage) {
                 const messageObj = JSON.parse(sendMessage.body);
-                showMessage(messageObj.from, messageObj.text);
+                showMessage(messageObj.sender, messageObj.text);
         });
-        stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': 'connected to server'}));
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': 'connected to server'}));
     });
 }
 
@@ -29,7 +29,7 @@ function disconnect() {
 }
 
 function sendMessage() {
-    stompClient.send("/chat/dialogue", {}, JSON.stringify({'from': userName, 'text': $("#message").val()}));
+    stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': $("#message").val()}));
     document.querySelector('#message').value = '';
 }
 

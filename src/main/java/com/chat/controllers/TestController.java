@@ -28,7 +28,7 @@ public class TestController {
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
         messagesDao.save(dialogueMessage);
-        return new DialogueMessage(dialogueMessage.getFrom() ,dialogueMessage.getText());
+        return new DialogueMessage(dialogueMessage.getSender() ,dialogueMessage.getText());
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

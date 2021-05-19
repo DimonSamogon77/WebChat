@@ -1,6 +1,5 @@
 package com.chat.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,11 +17,11 @@ public class DialogueMessage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String from;
+    private String sender;
     private String text;
 
-    public DialogueMessage(String from, String text) {
-        this.from = from;
+    public DialogueMessage(String sender, String text) {
+        this.sender = sender;
         this.text = text;
     }
 }
