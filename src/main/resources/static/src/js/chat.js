@@ -9,8 +9,8 @@ export default function chat() {
         // url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
         type: "GET",
         // data: regFormData,
-        // dataType: 'json',
-        // contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         success: (data) => {
             console.log(data)
         }
