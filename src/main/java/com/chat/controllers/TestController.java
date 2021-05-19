@@ -1,5 +1,6 @@
 package com.chat.controllers;
 
+import com.chat.dao.MessagesDao;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
@@ -15,15 +16,18 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     private PersonDao personDao;
+    private MessagesDao messagesDao;
 
     @Autowired
-    public TestController(PersonDao personDao) {
+    public TestController(PersonDao personDao, MessagesDao messagesDao) {
         this.personDao = personDao;
+        this.messagesDao = messagesDao;
     }
 
     @MessageMapping("/dialogue")
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
+        messagesDao.save(dialogueMessage);
         return new DialogueMessage(dialogueMessage.getFrom() ,dialogueMessage.getText());
     }
 

@@ -60,8 +60,8 @@ function form() {
         const regFormData = JSON.stringify(Object.fromEntries((new FormData(regForm)).entries()));
 
         $.ajax({
-            // url: "http://localhost:8080/chatik/signup",
-            url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+            url: "http://localhost:8080/chatik/signup",
+            // url: "https://chatdimonanton.herokuapp.com/chatik/signup",
             type: "POST",
             data: regFormData,
             dataType: 'json',
@@ -85,8 +85,8 @@ function form() {
         const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
         $.ajax({
-            // url: "http://localhost:8080/chatik/verification",
-            url: "https://chatdimonanton.herokuapp.com/chatik/verification",
+            url: "http://localhost:8080/chatik/verification",
+            // url: "https://chatdimonanton.herokuapp.com/chatik/verification",
             type: "POST",
             data: authFormData,
             dataType: 'json',
@@ -96,8 +96,8 @@ function form() {
 
                 if (data === 1) {
                     $.ajax({
-                        // url: "http://localhost:8080/chatik/signin",
-                        url: "https://chatdimonanton.herokuapp.com/chatik/signin",
+                        url: "http://localhost:8080/chatik/signin",
+                        // url: "https://chatdimonanton.herokuapp.com/chatik/signin",
                         type: "POST",
                         data: authFormData,
                         dataType: 'json',
