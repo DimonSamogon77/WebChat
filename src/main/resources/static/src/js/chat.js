@@ -147,13 +147,14 @@ export default function chat() {
         const logos = document.querySelectorAll('.header__logo');
         
         console.log(logos[0]);
-        logos[0].classList.add('.header__logo--selected-left');
-        logos[1].classList.add('.header__logo--selected');
+        logos[0].classList.add('header__logo--selected-left');
+        logos[1].classList.add('header__logo--selected');
         setTimeout(() => {
-            logos[0].classList.remove('.header__logo--selected-left');
-            logos[1].classList.remove('.header__logo--selected');
+            logos[0].classList.remove('header__logo--selected-left');
+            logos[1].classList.remove('header__logo--selected');
         }, 2300);
     }
 
     form();
+
 }
