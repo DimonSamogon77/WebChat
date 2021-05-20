@@ -41,6 +41,8 @@ export default function chat() {
     }
 
     function disconnect() {
+        const dialog=document.querySelector('.dialog__content');
+        dialog.innerHTML = "";
         logo();
         if (stompClient !== null) {
             stompClient.disconnect();
