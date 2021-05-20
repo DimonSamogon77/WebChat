@@ -13,6 +13,15 @@
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
+<header class="header">
+    <a class="header__link">
+        <img class="header__logo" src="img/logo2.jpg" alt="logo">
+    </a>
+    <p class="title">WebChat</p>
+    <a class="header__link">
+        <img class="header__logo" src="img/logo.jpg" alt="logo">
+    </a>
+</header>
 <section class="registration">
     <div class="registration__inner">
         <form class="registration__form">
@@ -33,12 +42,8 @@
     </div>
 </section>
 <div class="main-chat hide">
-    <header class="header">
-        <img class="header__logo" src="img/logo.jpg" alt="logo">
-        <p class="header__info">You logged as Anton</p>
-        <button class="header__button" id="disconnect">Disconnect</button>
-    </header>
     <div class="dialog">
+        <p class="dialog__info">You logged as Anton</p>
         <form class="dialog__form">
             <input type="text" id="message" class="form-control" placeholder="">
             <button id="send" class="btn btn-default" type="submit">Send</button>

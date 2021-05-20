@@ -143,7 +143,8 @@ body {
   font-family: 'Roboto-Condensed'; }
 
 .title {
-  text-align: center; }
+  text-align: center;
+  font-size: 30px; }
 
 .registration {
   position: relative; }
@@ -187,13 +188,21 @@ body {
   justify-content: space-between;
   align-items: center; }
   .header__logo {
-    height: 100px; }
-  .header__info {
-    font-size: 25px;
-    font-family: 'Roboto-Condensed'; }
+    height: 100px;
+    transition: 2s; }
+    .header__logo--selected {
+      transform: rotateZ(360deg); }
+    .header__logo--selected-left {
+      transform: rotateZ(-360deg); }
+  .header__link {
+    cursor: pointer; }
 
 .dialog {
   margin-top: 20px; }
+  .dialog__info {
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Roboto-Condensed'; }
   .dialog__content {
     width: 80%;
     height: 500px;

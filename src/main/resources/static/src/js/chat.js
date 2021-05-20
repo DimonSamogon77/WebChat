@@ -20,7 +20,7 @@ export default function chat() {
         let socket = new SockJS('/ws');
         userName = name;
 
-        document.querySelector('.header__info').innerHTML = `You logged as ${userName}`;
+        document.querySelector('.dialog__info').innerHTML = `You logged as ${userName}`;
 
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
@@ -35,12 +35,13 @@ export default function chat() {
     }
 
     function disconnect() {
+        logo();
         if (stompClient !== null) {
             stompClient.disconnect();
+            console.log("Disconnected");
+            document.querySelector('.registration').classList.remove('hide');
+            document.querySelector('.main-chat').classList.add('hide');
         }
-        console.log("Disconnected");
-        document.querySelector('.registration').classList.remove('hide');
-        document.querySelector('.main-chat').classList.add('hide');
     }
 
     function sendMessage() {
@@ -64,7 +65,7 @@ export default function chat() {
         $("form").on('submit', function (e) {
             e.preventDefault();
         });
-        $("#disconnect").click(function () {
+        $(".header__link").click(function () {
             disconnect();
         });
         $("#send").click(function () {
@@ -142,6 +143,17 @@ export default function chat() {
         });
     }
 
-    form();
+    function logo() {
+        const logos = document.querySelectorAll('.header__logo');
+        
+        console.log(logos[0]);
+        logos[0].classList.add('.header__logo--selected-left');
+        logos[1].classList.add('.header__logo--selected');
+        setTimeout(() => {
+            logos[0].classList.remove('.header__logo--selected-left');
+            logos[1].classList.remove('.header__logo--selected');
+        }, 2300);
+    }
 
+    form();
 }
