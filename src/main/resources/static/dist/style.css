@@ -153,7 +153,7 @@ body {
     position: relative;
     padding: 20px 0; }
   .registration__form {
-    width: 720px;
+    max-width: 720px;
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
@@ -161,7 +161,7 @@ body {
     background-color: white; }
   .registration__authorization-form {
     background-color: white;
-    width: 720px;
+    max-width: 720px;
     border: 1px solid black;
     margin: 10px auto;
     border-radius: 10px;

@@ -14,8 +14,8 @@ export default function chat() {
         document.querySelector('.dialog__info').innerHTML = `You logged as ${userName}`;
 
         $.ajax({
-            url: "http://localhost:8080/chatik/loaddb",
-            // url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
+            // url: "http://localhost:8080/chatik/loaddb",
+            url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
             type: "GET",
             // data: regFormData,
             dataType: 'json',
@@ -92,8 +92,8 @@ export default function chat() {
             const regFormData = JSON.stringify(Object.fromEntries((new FormData(regForm)).entries()));
 
             $.ajax({
-                url: "http://localhost:8080/chatik/signup",
-                // url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+                // url: "http://localhost:8080/chatik/signup",
+                url: "https://chatdimonanton.herokuapp.com/chatik/signup",
                 type: "POST",
                 data: regFormData,
                 dataType: 'json',
@@ -117,8 +117,8 @@ export default function chat() {
             const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
             $.ajax({
-                url: "http://localhost:8080/chatik/verification",
-                // url: "https://chatdimonanton.herokuapp.com/chatik/verification",
+                // url: "http://localhost:8080/chatik/verification",
+                url: "https://chatdimonanton.herokuapp.com/chatik/verification",
                 type: "POST",
                 data: authFormData,
                 dataType: 'json',
@@ -128,8 +128,8 @@ export default function chat() {
 
                     if (data === 1) {
                         $.ajax({
-                            url: "http://localhost:8080/chatik/signin",
-                            // url: "https://chatdimonanton.herokuapp.com/chatik/signin",
+                            // url: "http://localhost:8080/chatik/signin",
+                            url: "https://chatdimonanton.herokuapp.com/chatik/signin",
                             type: "POST",
                             data: authFormData,
                             dataType: 'json',
