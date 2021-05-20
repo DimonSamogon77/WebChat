@@ -224,6 +224,8 @@ body {
       text-align: right; }
   .dialog__sender {
     color: red; }
+    .dialog__sender--right {
+      color: #0000b8; }
 
 .hide {
   display: none; }

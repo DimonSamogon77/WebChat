@@ -1,10 +1,11 @@
 
 export default function chat() {
 
-    let stompClient = null;
-    let userName;
+    function scroll() {
+        const dialog = document.querySelector('.dialog__content');
 
-    
+        dialog.scrollTop = dialog.scrollHeight;
+    }
 
     function connect(name) {
         let socket = new SockJS('/ws');
@@ -22,6 +23,7 @@ export default function chat() {
             success: (data) => {
                 data.forEach(element => {
                     showMessage(element.sender, element.text);
+                    scroll();
                 });
             }
         });
@@ -61,8 +63,10 @@ export default function chat() {
         newMessage.innerHTML = `<p class="dialog__sender">${sender}</p><p>${text}</p>`;
         if (sender != userName) {
             newMessage.classList.add('dialog__message--right');
+            newMessage.querySelector('.dialog__sender').classList.add('dialog__sender--right')
         }
         dialog.append(newMessage);
+        scroll();
     }
 
     $(function () {
@@ -159,6 +163,7 @@ export default function chat() {
         }, 2300);
     }
 
+    let stompClient = null;
+    let userName;
     form();
-
 }
