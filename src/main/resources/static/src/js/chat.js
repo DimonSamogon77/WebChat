@@ -12,7 +12,9 @@ export default function chat() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: (data) => {
-            console.log(data)
+            data.forEach(element => {
+                showMessage(element.sender, element.text);
+            });
         }
     });
 
