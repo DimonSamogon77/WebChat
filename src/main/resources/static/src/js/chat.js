@@ -4,25 +4,27 @@ export default function chat() {
     let stompClient = null;
     let userName;
 
-    $.ajax({
-        url: "http://localhost:8080/chatik/loaddb",
-        // url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
-        type: "GET",
-        // data: regFormData,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: (data) => {
-            data.forEach(element => {
-                showMessage(element.sender, element.text);
-            });
-        }
-    });
+    
 
     function connect(name) {
         let socket = new SockJS('/ws');
         userName = name;
 
         document.querySelector('.dialog__info').innerHTML = `You logged as ${userName}`;
+
+        $.ajax({
+            url: "http://localhost:8080/chatik/loaddb",
+            // url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
+            type: "GET",
+            // data: regFormData,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: (data) => {
+                data.forEach(element => {
+                    showMessage(element.sender, element.text);
+                });
+            }
+        });
 
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
