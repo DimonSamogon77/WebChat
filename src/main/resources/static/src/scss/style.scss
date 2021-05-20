@@ -75,6 +75,7 @@ body {
         width: 80%;
         height: 500px;
         margin: auto;
+        padding: 10px;
         border: 1px solid rgb(192, 192, 192);
         border-radius: 10px;
         overflow-y: scroll;
@@ -89,6 +90,9 @@ body {
     &__message {
         margin: 0;
         padding: 5px;
+        &--right {
+            text-align: right;
+        }
     }
     &__sender {
         color: red;

@@ -49,13 +49,13 @@ export default function chat() {
     }
 
     function showMessage(sender, text) {
-        const newMessage = document.createElement('p');
-        const dialog = document.querySelector('.dialog__content')
+        const newMessage = document.createElement('div');
+        const dialog = document.querySelector('.dialog__content');
 
-        if (sender == userName) {
-            newMessage.innerHTML = `<p class="dialog__message dialog__sender">${sender}</p><p class="dialog__message">${text}</p>`;
-        } else {
-            newMessage.innerHTML = `<p class="dialog__message dialog__sender">${sender}</p><p class="dialog__message">${text}</p>`;
+        newMessage.classList.add('dialog__message');
+        newMessage.innerHTML = `<p class="dialog__sender">${sender}</p><p>${text}</p>`;
+        if (sender != userName) {
+            newMessage.classList.add('dialog__message--right');
         }
         dialog.append(newMessage);
     }
