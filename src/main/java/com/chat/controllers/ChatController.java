@@ -5,21 +5,29 @@ import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
 import com.chat.models.PersonWithNoUsername;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import javax.servlet.MultipartConfigElement;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 @RestController
 @RequestMapping(value = "/chatik")
-public class TestController {
+public class ChatController {
 
     private PersonDao personDao;
     private MessagesDao messagesDao;
 
     @Autowired
-    public TestController(PersonDao personDao, MessagesDao messagesDao) {
+    public ChatController(PersonDao personDao, MessagesDao messagesDao) {
         this.personDao = personDao;
         this.messagesDao = messagesDao;
     }
@@ -31,8 +39,10 @@ public class TestController {
         return new DialogueMessage(dialogueMessage.getSender() ,dialogueMessage.getText());
     }
 
+    @SneakyThrows
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean signUp(@RequestBody Person person) {
+    public boolean signUp(@RequestBody Person person, @RequestParam("avatar") MultipartFile file) {
+        file.transferTo(new File("src/main/resources/images/result.jpg"));
         Person findPerson = personDao.findByEmail(person.getEmail());
         if (findPerson == null) {
             personDao.save(person);
@@ -63,5 +73,16 @@ public class TestController {
     @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<DialogueMessage> loadDb(){
         return messagesDao.findAll();
+    }
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        return new MultipartConfigElement("");
+    }
+
+    @SneakyThrows
+    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = "multipart/form-data")
+    public void saveImage(@RequestParam("avatar") MultipartFile file){
+        System.out.println("пососи");
     }
 }

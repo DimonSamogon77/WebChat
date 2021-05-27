@@ -114,12 +114,14 @@ export default function chat() {
                 }
             });
             $.ajax({
-                // url: "http://localhost:8080/chatik/signup",
+                url: "http://localhost:8080/chatik/image",
                 // url: "https://chatdimonanton.herokuapp.com/chatik/signup",
                 type: "POST",
-                data: regFormData.image,
+                data: new FormData($('#fileUploadForm')[0]),
+                enctype:'multipart/form-data' ,
                 processData: false,
                 contentType: false,
+                cache: false,
                 success: (data) => {
                     console.log(data);
                 }
