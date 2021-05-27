@@ -41,8 +41,7 @@ public class ChatController {
 
     @SneakyThrows
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean signUp(@RequestBody Person person, @RequestParam("avatar") MultipartFile file) {
-        file.transferTo(new File("src/main/resources/images/result.jpg"));
+    public boolean signUp(@RequestBody Person person) {
         Person findPerson = personDao.findByEmail(person.getEmail());
         if (findPerson == null) {
             personDao.save(person);
