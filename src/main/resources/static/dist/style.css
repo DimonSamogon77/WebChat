@@ -171,9 +171,16 @@ body {
     display: block;
     width: 80%;
     margin: 0 auto 10px; }
+  .registration__input-image {
+    margin-left: 10px; }
+  .registration__label {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto; }
   .registration__button {
     display: block;
-    margin: auto; }
+    margin: 20px auto 0; }
   .registration__authorization-button {
     display: block;
     margin: auto; }

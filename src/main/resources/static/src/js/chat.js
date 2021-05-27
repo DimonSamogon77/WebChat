@@ -111,6 +111,17 @@ export default function chat() {
                     }
                 }
             });
+            $.ajax({
+                // url: "http://localhost:8080/chatik/signup",
+                // url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+                type: "POST",
+                data: regFormData.image,
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    console.log(data);
+                }
+            });
         });
         authButton.addEventListener('click', (event) => {
             event.preventDefault();
