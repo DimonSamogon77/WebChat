@@ -36,7 +36,6 @@ public class TestController {
         Person findPerson = personDao.findByEmail(person.getEmail());
         if (findPerson == null) {
             personDao.save(person);
-            System.out.println("Мы молодцы");
             return true;
         }
         return false;
