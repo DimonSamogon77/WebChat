@@ -77,7 +77,7 @@ public class ChatController {
 
     @SneakyThrows
     @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void saveImage(@RequestParam("avatar") MultipartFile file){
+    public void saveImage(@RequestPart MultipartFile avatar){
         System.out.println("пососи");
     }
 }
