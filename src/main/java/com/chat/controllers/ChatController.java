@@ -64,23 +64,19 @@ public class ChatController {
         }
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
         return personDao.findByEmail(personWithNoUsername.getEmail());
     }
 
-    @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<DialogueMessage> loadDb(){
         return messagesDao.findAll();
     }
 
-    @Bean
-    public MultipartConfigElement multipartConfigElement() {
-        return new MultipartConfigElement("");
-    }
 
     @SneakyThrows
-    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = "multipart/form-data")
+    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void saveImage(@RequestParam("avatar") MultipartFile file){
         System.out.println("пососи");
     }
