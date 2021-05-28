@@ -7,17 +7,12 @@ import com.chat.models.Person;
 import com.chat.models.PersonWithNoUsername;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.servlet.MultipartConfigElement;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 @RestController
 @RequestMapping(value = "/chatik")
