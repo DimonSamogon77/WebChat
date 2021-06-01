@@ -1,27 +1,39 @@
 package com.chat.controllers;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.chat.dao.AmazonFileStorage;
 import com.chat.dao.MessagesDao;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
 import com.chat.models.PersonWithNoUsername;
+import lombok.SneakyThrows;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+
 
 @RestController
 @RequestMapping(value = "/chatik")
-public class TestController {
+public class ChatController {
 
     private PersonDao personDao;
     private MessagesDao messagesDao;
+    private AmazonS3 s3;
+    private AmazonFileStorage amazonFileStorage;
 
     @Autowired
-    public TestController(PersonDao personDao, MessagesDao messagesDao) {
+    public ChatController(PersonDao personDao, MessagesDao messagesDao) {
         this.personDao = personDao;
         this.messagesDao = messagesDao;
+        this.s3 = amazonFileStorage.createConnection();
     }
 
     @MessageMapping("/dialogue")
@@ -31,6 +43,7 @@ public class TestController {
         return new DialogueMessage(dialogueMessage.getSender() ,dialogueMessage.getText());
     }
 
+    @SneakyThrows
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean signUp(@RequestBody Person person) {
         Person findPerson = personDao.findByEmail(person.getEmail());
@@ -55,13 +68,22 @@ public class TestController {
         }
     }
 
-    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/signin", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Person signIn(@RequestBody PersonWithNoUsername personWithNoUsername){
         return personDao.findByEmail(personWithNoUsername.getEmail());
     }
 
-    @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/loaddb", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<DialogueMessage> loadDb(){
         return messagesDao.findAll();
+    }
+
+
+    @SneakyThrows
+    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void saveImage(@RequestPart MultipartFile avatar) {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(avatar.getSize());
+        s3.putObject("huipizda", "avatar."+ FilenameUtils.getExtension(avatar.getOriginalFilename()), avatar.getInputStream(), objectMetadata);
     }
 }
