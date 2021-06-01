@@ -122,6 +122,7 @@ export default function chat() {
                 contentType: false,
                 success: (data) => {
                     console.log(data);
+                    document.querySelector('.dialog__header-img').src = data;
                 }
             });
         });

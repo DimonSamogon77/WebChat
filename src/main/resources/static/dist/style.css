@@ -206,6 +206,11 @@ body {
 
 .dialog {
   margin-top: 20px; }
+  .dialog__header {
+    display: flex;
+    align-items: center; }
+  .dialog__header-avatar {
+    height: 100px; }
   .dialog__info {
     font-size: 25px;
     text-align: center;
