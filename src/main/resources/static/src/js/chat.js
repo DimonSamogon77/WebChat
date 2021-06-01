@@ -117,7 +117,7 @@ export default function chat() {
                 url: "http://localhost:8080/chatik/image",
                 // url: "https://chatdimonanton.herokuapp.com/chatik/signup",
                 type: "POST",
-                data: new FormData($('#fileUploadForm')[0]),
+                data: new FormData(document.querySelector('#fileUploadForm')),
                 enctype:'multipart/form-data' ,
                 processData: false,
                 contentType: false,

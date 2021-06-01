@@ -1,17 +1,23 @@
 package com.chat.controllers;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.chat.dao.AmazonFileStorage;
 import com.chat.dao.MessagesDao;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
 import com.chat.models.PersonWithNoUsername;
 import lombok.SneakyThrows;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 
 @RestController
@@ -20,11 +26,14 @@ public class ChatController {
 
     private PersonDao personDao;
     private MessagesDao messagesDao;
+    private AmazonS3 s3;
+    private AmazonFileStorage amazonFileStorage;
 
     @Autowired
     public ChatController(PersonDao personDao, MessagesDao messagesDao) {
         this.personDao = personDao;
         this.messagesDao = messagesDao;
+        this.s3 = amazonFileStorage.createConnection();
     }
 
     @MessageMapping("/dialogue")
@@ -72,7 +81,9 @@ public class ChatController {
 
     @SneakyThrows
     @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void saveImage(@RequestPart MultipartFile avatar){
-        System.out.println("пососи");
+    public void saveImage(@RequestPart MultipartFile avatar) {
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(avatar.getSize());
+        s3.putObject("huipizda", "avatar."+ FilenameUtils.getExtension(avatar.getOriginalFilename()), avatar.getInputStream(), objectMetadata);
     }
 }
