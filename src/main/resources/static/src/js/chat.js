@@ -124,7 +124,7 @@ export default function chat() {
                 cache: false,
                 success: (data) => {
                     console.log(data);
-                    document.querySelector('.dialog__header-img').src = data;
+                    document.querySelector('.dialog__header-img').src = "img/logo.png";
                 }
             });
         });
