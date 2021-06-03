@@ -1,8 +1,9 @@
 package com.chat.controllers;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.chat.dao.AmazonFileStorage;
+import com.chat.config.StorageConfig;
 import com.chat.dao.MessagesDao;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
@@ -17,7 +18,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.net.URL;
 
 
 @RestController
@@ -26,14 +27,13 @@ public class ChatController {
 
     private PersonDao personDao;
     private MessagesDao messagesDao;
-    private AmazonS3 s3;
-    private AmazonFileStorage amazonFileStorage;
+    AmazonS3 s3;
 
     @Autowired
-    public ChatController(PersonDao personDao, MessagesDao messagesDao) {
+    public ChatController(PersonDao personDao, MessagesDao messagesDao, StorageConfig storageConfig) {
         this.personDao = personDao;
         this.messagesDao = messagesDao;
-        this.s3 = amazonFileStorage.createConnection();
+        this.s3 = storageConfig.getAmazonS3();
     }
 
     @MessageMapping("/dialogue")
@@ -80,10 +80,13 @@ public class ChatController {
 
 
     @SneakyThrows
-    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void saveImage(@RequestPart MultipartFile avatar) {
+    @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public URL saveImage(@RequestPart MultipartFile avatar) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(avatar.getSize());
-        s3.putObject("huipizda", "avatar."+ FilenameUtils.getExtension(avatar.getOriginalFilename()), avatar.getInputStream(), objectMetadata);
+        String filename = "aboba."+FilenameUtils.getExtension(avatar.getOriginalFilename());
+        s3.putObject("webchatdimonanton", filename, avatar.getInputStream(), objectMetadata);
+        s3.setObjectAcl("webchatdimonanton", filename, CannedAccessControlList.PublicRead);
+        return s3.getUrl("webchatdimonanton", filename);
     }
 }

@@ -123,7 +123,12 @@ export default function chat() {
                 contentType: false,
                 cache: false,
                 success: (data) => {
+<<<<<<< HEAD
                     document.querySelector('.dialog__header-avatar').src = data;
+=======
+                    console.log(data);
+                    document.querySelector('.dialog__header-img').src = "img/logo.png";
+>>>>>>> fd2fa8cbc6cd72978431f10ac7606adeddb41afd
                 }
             });
         });
