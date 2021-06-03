@@ -21,6 +21,7 @@ public class StorageConfig {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.EU_WEST_3)
                 .build();
+        System.out.println("ЗАебись");
     }
 
     public AmazonS3 getAmazonS3(){
