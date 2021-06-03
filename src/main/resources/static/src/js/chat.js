@@ -115,7 +115,7 @@ export default function chat() {
             });
             $.ajax({
                 // url: "http://localhost:8080/chatik/image",
-                url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+                url: "https://chatdimonanton.herokuapp.com/chatik/image",
                 type: "POST",
                 data: new FormData(document.querySelector('#fileUploadForm')),
                 enctype:'multipart/form-data' ,
