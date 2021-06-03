@@ -84,7 +84,7 @@ public class ChatController {
     public URL saveImage(@RequestPart MultipartFile avatar) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(avatar.getSize());
-        String filename = "aboba."+FilenameUtils.getExtension(avatar.getOriginalFilename());
+        String filename = avatar.getName()+"aboba."+FilenameUtils.getExtension(avatar.getOriginalFilename());
         s3.putObject("webchatdimonanton", filename, avatar.getInputStream(), objectMetadata);
         s3.setObjectAcl("webchatdimonanton", filename, CannedAccessControlList.PublicRead);
         return s3.getUrl("webchatdimonanton", filename);
