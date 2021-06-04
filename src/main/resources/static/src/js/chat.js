@@ -1,6 +1,9 @@
 
 export default function chat() {
 
+    let url = "http://localhost:8080/chatik/";
+    //let url = "https://chatdimonanton.herokuapp.com/chatik/"
+
     function scroll() {
         const dialog = document.querySelector('.dialog__content');
 
@@ -14,8 +17,7 @@ export default function chat() {
         document.querySelector('.dialog__info').innerHTML = `You logged as ${userName}`;
 
         $.ajax({
-            // url: "http://localhost:8080/chatik/loaddb",
-            url: "https://chatdimonanton.herokuapp.com/chatik/loaddb",
+            url:  url+"loaddb",
             type: "GET",
             // data: regFormData,
             dataType: 'json',
@@ -63,7 +65,7 @@ export default function chat() {
 
         newMessage.classList.add('dialog__message');
         newMessage.innerHTML = `<p class="dialog__sender">${sender}</p><p>${text}</p>`;
-        if (sender != userName) {
+        if (sender !== userName) {
             newMessage.classList.add('dialog__message--right');
             newMessage.querySelector('.dialog__sender').classList.add('dialog__sender--right')
         }
@@ -94,8 +96,7 @@ export default function chat() {
             const regFormData = JSON.stringify(Object.fromEntries((new FormData(regForm)).entries()));
 
             $.ajax({
-                // url: "http://localhost:8080/chatik/signup",
-                url: "https://chatdimonanton.herokuapp.com/chatik/signup",
+                url: url+"signup",
                 type: "POST",
                 data: regFormData,
                 dataType: 'json',
@@ -114,8 +115,7 @@ export default function chat() {
                 }
             });
             $.ajax({
-                // url: "http://localhost:8080/chatik/image",
-                url: "https://chatdimonanton.herokuapp.com/chatik/image",
+                url: url+"image",
                 type: "POST",
                 data: new FormData(document.querySelector('#fileUploadForm')),
                 enctype:'multipart/form-data' ,
@@ -132,8 +132,7 @@ export default function chat() {
             const authFormData = JSON.stringify(Object.fromEntries((new FormData(authForm)).entries()));
 
             $.ajax({
-                // url: "http://localhost:8080/chatik/verification",
-                url: "https://chatdimonanton.herokuapp.com/chatik/verification",
+                url: url+"verification",
                 type: "POST",
                 data: authFormData,
                 dataType: 'json',
@@ -143,8 +142,7 @@ export default function chat() {
 
                     if (data === 1) {
                         $.ajax({
-                            // url: "http://localhost:8080/chatik/signin",
-                            url: "https://chatdimonanton.herokuapp.com/chatik/signin",
+                            url:url+"signin",
                             type: "POST",
                             data: authFormData,
                             dataType: 'json',
