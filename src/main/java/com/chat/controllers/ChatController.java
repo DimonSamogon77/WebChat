@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
+import java.util.UUID;
 
 
 @RestController
@@ -84,7 +85,8 @@ public class ChatController {
     public URL saveImage(@RequestPart MultipartFile avatar) {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(avatar.getSize());
-        String filename = avatar.getName()+"aboba."+FilenameUtils.getExtension(avatar.getOriginalFilename());
+        objectMetadata.setContentType(avatar.getContentType());
+        String filename = UUID.randomUUID().toString()+"."+FilenameUtils.getExtension(avatar.getOriginalFilename());
         s3.putObject("webchatdimonanton", filename, avatar.getInputStream(), objectMetadata);
         s3.setObjectAcl("webchatdimonanton", filename, CannedAccessControlList.PublicRead);
         return s3.getUrl("webchatdimonanton", filename);
