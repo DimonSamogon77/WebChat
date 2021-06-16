@@ -152,21 +152,13 @@ body {
     width: 100%;
     position: relative;
     padding: 20px 0; }
-  .registration__form {
+  .registration__window {
     max-width: 720px;
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
     margin: 10px auto;
     background-color: white; }
-  .registration__authorization-form {
-    background-color: white;
-    max-width: 720px;
-    border: 1px solid black;
-    margin: 10px auto;
-    border-radius: 10px;
-    padding: 10px;
-    /* z-index: -1; */ }
   .registration__input {
     display: block;
     width: 80%;
@@ -209,8 +201,9 @@ body {
   .dialog__header {
     display: flex;
     align-items: center; }
-  .dialog__header-avatar {
-    height: 100px; }
+  .dialog__avatar {
+    height: 50px;
+    margin-right: 20px; }
   .dialog__info {
     font-size: 25px;
     text-align: center;
@@ -231,11 +224,15 @@ body {
     margin: 10px auto; }
   .dialog__message {
     margin: 0;
-    padding: 5px; }
+    padding: 5px;
+    font-size: 20px; }
     .dialog__message--right {
       text-align: right; }
   .dialog__sender {
-    color: red; }
+    display: flex;
+    align-items: center;
+    color: red;
+    font-size: 24px; }
     .dialog__sender--right {
       color: #0000b8; }
 

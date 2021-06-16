@@ -64,7 +64,7 @@ export default function chat() {
         const dialog = document.querySelector('.dialog__content');
 
         newMessage.classList.add('dialog__message');
-        newMessage.innerHTML = `<p class="dialog__sender">${sender}</p><p>${text}</p>`;
+        newMessage.innerHTML = `<div class="dialog__sender"><img class="dialog__avatar" src="img/logo.jpg" alt="avatar">${sender}</p><p>${text}</p>`;
         if (sender !== userName) {
             newMessage.classList.add('dialog__message--right');
             newMessage.querySelector('.dialog__sender').classList.add('dialog__sender--right')

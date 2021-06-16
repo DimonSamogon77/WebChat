@@ -18,22 +18,13 @@ body {
         position: relative;
         padding: 20px 0;
     }
-    &__form {
+    &__window {
         max-width: 720px;
         border: 1px solid black;
         border-radius: 10px;
         padding: 10px;
         margin: 10px auto;
-        background-color: white;
-    }
-    &__authorization-form {
-        background-color: white;
-        max-width: 720px;
-        border: 1px solid black;
-        margin: 10px auto;
-        border-radius: 10px;
-        padding: 10px;
-        /* z-index: -1; */
+        background-color: white; 
     }
     &__input {
         display: block;
@@ -93,8 +84,9 @@ body {
         align-items: center;
     }
 
-    &__header-avatar {
-        height: 100px;
+    &__avatar {
+        height: 50px;
+        margin-right: 20px;
     }
 
     &__info {
@@ -122,12 +114,16 @@ body {
     &__message {
         margin: 0;
         padding: 5px;
+        font-size: 20px;
         &--right {
             text-align: right;
         }
     }
     &__sender {
+        display: flex;
+        align-items: center;
         color: red;
+        font-size: 24px;
         &--right {
             color: rgb(0, 0, 184);
         }
