@@ -19,9 +19,11 @@ public class DialogueMessage {
 
     private String sender;
     private String text;
+    private String avatar;
 
-    public DialogueMessage(String sender, String text) {
+    public DialogueMessage(String sender, String text, String avatar) {
         this.sender = sender;
         this.text = text;
+        this.avatar = avatar;
     }
 }

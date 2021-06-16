@@ -41,8 +41,10 @@ public class ChatController {
     @SendTo("/topic/chat")
     public DialogueMessage sendMessage(DialogueMessage dialogueMessage){
         messagesDao.save(dialogueMessage);
-        return new DialogueMessage(dialogueMessage.getSender() ,dialogueMessage.getText());
+        return new DialogueMessage(dialogueMessage.getSender() ,dialogueMessage.getText(), dialogueMessage.getAvatar());
     }
+
+
 
     @SneakyThrows
     @RequestMapping(value = "/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
