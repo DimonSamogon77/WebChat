@@ -2,6 +2,7 @@
 export default function chat() {
 
     let url = "http://localhost:8080/chatik/";
+    let avatar;
     //let url = "https://chatdimonanton.herokuapp.com/chatik/"
 
     function scroll() {
@@ -14,7 +15,7 @@ export default function chat() {
         let socket = new SockJS('/ws');
         userName = name;
 
-        document.querySelector('.dialog__info').innerHTML = `You logged as ${userName}`;
+        document.querySelector('.dialog__info').innerHTML = `You logged as <img class="dialog__info-avatar" src="${avatar}" alt="user avatar">${userName}`;
 
         $.ajax({
             url:  url+"loaddb",
@@ -24,7 +25,7 @@ export default function chat() {
             contentType: 'application/json; charset=utf-8',
             success: (data) => {
                 data.forEach(element => {
-                    showMessage(element.sender, element.text);
+                    showMessage(element.sender, element.text, element.avatar);
                     scroll();
                 });
             }
@@ -36,9 +37,9 @@ export default function chat() {
             stompClient.subscribe('/topic/chat',
                 function (sendMessage) {
                     const messageObj = JSON.parse(sendMessage.body);
-                    showMessage(messageObj.sender, messageObj.text);
+                    showMessage(messageObj.sender, messageObj.text, messageObj.avatar);
             });
-            stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': 'connected to server'}));
+            stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': 'connected to server', 'avatar': avatar}));
         });
     }
 
@@ -55,16 +56,17 @@ export default function chat() {
     }
 
     function sendMessage() {
-        stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': $("#message").val()}));
+        stompClient.send("/chat/dialogue", {}, JSON.stringify({'sender': userName, 'text': $("#message").val(), 'avatar': avatar}));
         document.querySelector('#message').value = '';
     }
 
-    function showMessage(sender, text) {
+    function showMessage(sender, text, messageAvatar) {
         const newMessage = document.createElement('div');
         const dialog = document.querySelector('.dialog__content');
 
         newMessage.classList.add('dialog__message');
-        newMessage.innerHTML = `<div class="dialog__sender"><img class="dialog__avatar" src="img/logo.jpg" alt="avatar">${sender}</p><p>${text}</p>`;
+        newMessage.innerHTML = `<div class="dialog__sender"><img class="dialog__avatar" src="" alt="avatar">${sender}</p><p>${text}</p>`;
+        newMessage.querySelector('img').src = messageAvatar;
         if (sender !== userName) {
             newMessage.classList.add('dialog__message--right');
             newMessage.querySelector('.dialog__sender').classList.add('dialog__sender--right')
@@ -103,7 +105,6 @@ export default function chat() {
                 contentType: 'application/json; charset=utf-8',
                 success: (data) => {
                     if (data) {
-                        console.log(data);
                         document.querySelector('.registration').classList.add('hide');
                         document.querySelector('.main-chat').classList.remove('hide');
                         connect(document.querySelector('.registration__registration-input').value);
@@ -123,7 +124,7 @@ export default function chat() {
                 contentType: false,
                 cache: false,
                 success: (data) => {
-                    document.querySelector('.dialog__header-avatar').src = data;
+                    avatar = data;
                 }
             });
         });

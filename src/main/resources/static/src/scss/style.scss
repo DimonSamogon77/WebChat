@@ -93,6 +93,14 @@ body {
         font-size: 25px;
         text-align: center;
         font-family: 'Roboto-Condensed';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__info-avatar {
+        height: 50px;
+        margin: 0 15px 0 20px;
     }
 
     &__content {

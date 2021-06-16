@@ -207,7 +207,13 @@ body {
   .dialog__info {
     font-size: 25px;
     text-align: center;
-    font-family: 'Roboto-Condensed'; }
+    font-family: 'Roboto-Condensed';
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .dialog__info-avatar {
+    height: 50px;
+    margin: 0 15px 0 20px; }
   .dialog__content {
     width: 80%;
     height: 500px;
