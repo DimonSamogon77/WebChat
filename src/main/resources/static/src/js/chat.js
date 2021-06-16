@@ -11,11 +11,11 @@ export default function chat() {
         dialog.scrollTop = dialog.scrollHeight;
     }
 
-    function connect(name) {
+    function connect(name, userAvatar) {
         let socket = new SockJS('/ws');
         userName = name;
 
-        document.querySelector('.dialog__info').innerHTML = `You logged as <img class="dialog__info-avatar" src="${avatar}" alt="user avatar">${userName}`;
+        document.querySelector('.dialog__info').innerHTML = `You logged as <img class="dialog__info-avatar" src="${userAvatar}" alt="user avatar">${userName}`;
 
         $.ajax({
             url:  url+"loaddb",
@@ -65,7 +65,7 @@ export default function chat() {
         const dialog = document.querySelector('.dialog__content');
 
         newMessage.classList.add('dialog__message');
-        newMessage.innerHTML = `<div class="dialog__sender"><img class="dialog__avatar" src="" alt="avatar">${sender}</p><p>${text}</p>`;
+        newMessage.innerHTML = `<div class="dialog__sender"><img class="dialog__avatar" src="" alt="avatar">${sender}</div><p>${text}</p>`;
         newMessage.querySelector('img').src = messageAvatar;
         if (sender !== userName) {
             newMessage.classList.add('dialog__message--right');
@@ -105,26 +105,26 @@ export default function chat() {
                 contentType: 'application/json; charset=utf-8',
                 success: (data) => {
                     if (data) {
-                        document.querySelector('.registration').classList.add('hide');
-                        document.querySelector('.main-chat').classList.remove('hide');
-                        connect(document.querySelector('.registration__registration-input').value);
-                        document.querySelector('.registration__registration-alert').innerHTML = '';
-                        document.querySelector('.registration__authorization-alert').innerHTML = '';
+                        $.ajax({
+                            url: url+"image",
+                            type: "POST",
+                            data: new FormData(document.querySelector('#fileUploadForm')),
+                            enctype:'multipart/form-data' ,
+                            processData: false,
+                            contentType: false,
+                            cache: false,
+                            success: (data) => {
+                                avatar = data;
+                                connect(document.querySelector('.registration__registration-input').value, avatar);
+                                document.querySelector('.registration').classList.add('hide');
+                                document.querySelector('.main-chat').classList.remove('hide');
+                                document.querySelector('.registration__registration-alert').innerHTML = '';
+                                document.querySelector('.registration__authorization-alert').innerHTML = '';
+                            }
+                        });
                     } else {
                         document.querySelector('.registration__registration-alert').innerHTML = "user with this email is already exist";
                     }
-                }
-            });
-            $.ajax({
-                url: url+"image",
-                type: "POST",
-                data: new FormData(document.querySelector('#fileUploadForm')),
-                enctype:'multipart/form-data' ,
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: (data) => {
-                    avatar = data;
                 }
             });
         });
