@@ -1,14 +1,13 @@
 package com.chat.controllers;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.chat.config.StorageConfig;
 import com.chat.dao.MessagesDao;
 import com.chat.dao.PersonDao;
 import com.chat.models.DialogueMessage;
 import com.chat.models.Person;
 import com.chat.models.PersonWithNoUsername;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +27,13 @@ public class ChatController {
 
     private PersonDao personDao;
     private MessagesDao messagesDao;
-    AmazonS3 s3;
+    private MinioClient client;
 
     @Autowired
     public ChatController(PersonDao personDao, MessagesDao messagesDao, StorageConfig storageConfig) {
         this.personDao = personDao;
         this.messagesDao = messagesDao;
-        this.s3 = storageConfig.getAmazonS3();
+        this.client = storageConfig.getClient();
     }
 
     @MessageMapping("/dialogue")
@@ -85,12 +84,13 @@ public class ChatController {
     @SneakyThrows
     @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public URL saveImage(@RequestPart MultipartFile avatar) {
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(avatar.getSize());
-        objectMetadata.setContentType(avatar.getContentType());
-        String filename = UUID.randomUUID().toString()+"."+FilenameUtils.getExtension(avatar.getOriginalFilename());
-        s3.putObject("webchatdimonanton", filename, avatar.getInputStream(), objectMetadata);
-        s3.setObjectAcl("webchatdimonanton", filename, CannedAccessControlList.PublicRead);
-        return s3.getUrl("webchatdimonanton", filename);
+        String filename = UUID.randomUUID().toString()+"."+ FilenameUtils.getExtension(avatar.getOriginalFilename());
+        client.putObject(PutObjectArgs.builder()
+                .bucket("discord")
+                .object(filename)
+                .contentType(avatar.getContentType())
+                .stream(avatar.getInputStream(), avatar.getSize(), -1)
+                .build());
+        return new URL("http://192.168.1.74:9000/discord/"+filename);
     }
 }

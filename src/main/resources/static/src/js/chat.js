@@ -1,9 +1,9 @@
 
 export default function chat() {
 
-    let url = "http://localhost:8080/chatik/";
+    //let url = "http://localhost:8085/chatik/";
     let avatar;
-    //let url = "https://chatdimonanton.herokuapp.com/chatik/"
+    let url = "https://95.31.1.120/chatik/"
 
     function scroll() {
         const dialog = document.querySelector('.dialog__content');
