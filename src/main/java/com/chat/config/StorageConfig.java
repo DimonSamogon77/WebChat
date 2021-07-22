@@ -11,7 +11,7 @@ public class StorageConfig {
     public StorageConfig(@Value("${storage.access.key}") String accessKey, @Value("${storage.secret.key}") String secretKey) {
         client = MinioClient.builder()
                 .credentials(accessKey, secretKey)
-                .endpoint("http://192.168.1.74:9000")
+                .endpoint("http://95.31.1.120:9000")
                 .build();
     }
 

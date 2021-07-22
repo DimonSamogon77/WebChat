@@ -91,6 +91,6 @@ public class ChatController {
                 .contentType(avatar.getContentType())
                 .stream(avatar.getInputStream(), avatar.getSize(), -1)
                 .build());
-        return new URL("http://192.168.1.74:9000/discord/"+filename);
+        return new URL("http://95.31.1.120:9000/discord/"+filename);
     }
 }

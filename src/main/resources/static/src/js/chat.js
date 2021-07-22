@@ -3,7 +3,7 @@ export default function chat() {
 
     //let url = "http://localhost:8085/chatik/";
     let avatar;
-    let url = "https://95.31.1.120/chatik/"
+    let url = "http://dimonsorg.ru/chatik/"
 
     function scroll() {
         const dialog = document.querySelector('.dialog__content');
